@@ -24,3 +24,20 @@ function appendTd(tr, value) {
 
   tr.append(newTd);
 }
+
+function appendDeleteBtn(tr) {
+  let deleteBtn = document.createElement('td');
+  deleteBtn.innerText = 'X';
+  deleteBtn.addEventListener('click', removeRowAndUpdate);
+  tr.append(deleteBtn);
+}
+
+// deletes table rows and also updatees allServers and allPayments list
+function removeRowAndUpdate(e) {
+  let target = e.target;
+  delete allServers[target.parentElement.id];
+  delete allPayments[target.parentElement.id];
+  target.parentElement.remove();
+  updateServerTable();
+  updateSummary();
+}

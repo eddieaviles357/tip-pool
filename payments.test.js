@@ -6,7 +6,6 @@ describe('payments testers', function() {
     })
     // payments
     it('should return payment obj', function() {
-                                            // testing
       let { billAmt, tipAmt, tipPercent } = createCurPayment();
       expect(billAmt).toEqual('100');
       expect(tipAmt).toEqual('50');
@@ -20,16 +19,22 @@ describe('payments testers', function() {
         // testing
         appendPaymentTable(curPayment);
     
-        let curTdList = document.querySelectorAll('#paymentTable tbody tr td');
-        expect(curTdList.length).toEqual(3);
-        expect(curTdList[0].innerText).toEqual('$100');
-        expect(curTdList[1].innerText).toEqual('$50');
-        expect(curTdList[2].innerText).toEqual('50%');
+        let tds = document.querySelectorAll('#paymentTable tbody tr td');
+        expect(tds.length).toEqual(4);
+        expect(tds[0].innerText).toEqual('$100');
+        expect(tds[1].innerText).toEqual('$50');
+        expect(tds[2].innerText).toEqual('50%');
+        expect(tds[3].innerText).toEqual('X');
       });
       
     afterEach(function() {
         // teardown logic
         billAmtInput.value = '';
         tipAmtInput.value = '';
+        paymentId = 0;
+        if(paymentTbody.children[0]) paymentTbody.children[0].remove();
+        if(serverTbody.children[0]) serverTbody.children[0].remove();
+        delete allPayments['payment1'];
+        delete allServers['server1'];
       });
 });
